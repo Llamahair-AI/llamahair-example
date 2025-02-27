@@ -7,8 +7,6 @@
 app = 'llamahair-example'
 primary_region = 'sea'
 
-[build]
-
 [env]
 PORT = '8000'
 
