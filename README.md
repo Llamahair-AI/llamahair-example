@@ -35,6 +35,7 @@ A Discord bot that integrates with Llamahair.ai for message moderation in Discor
 
 4. Configure your environment variables in `.env`:
    - `DISCORD_TOKEN`: Your Discord bot token
+   - `LLAMAHAIR_API_KEY`: Llamahair.ai API key
    - `LLAMAHAIR_API_KEY`: Your Llamahair.ai API key
    - Other optional configurations (see `.env.example`)
 
@@ -66,11 +67,10 @@ The bot can be configured using environment variables:
 - `HOST`: HTTP server host (default: localhost)
 - `NODE_ENV`: Environment mode (development/production)
 - `LOG_LEVEL`: Logging level (error/warn/info/debug)
-- `LLAMAHAIR_API_URL`: Llamahair.ai API URL (default: https://api.llamahair.ai)
 
 ## Llamahair.ai Integration
 
-The bot integrates with Llamahair.ai for message moderation:
+The bot integrates with Llamahair.ai for message processing.
 
 ### Outgoing Requests
 When a message is received, the bot sends a request to Llamahair.ai with the following format:
@@ -93,19 +93,25 @@ The signature is generated using: `sha256(id + body + timestamp + SECRET_KEY)`
    - The ID format allows direct message lookup later
 
 2. When a response is received:
-   - For "ok" responses: No action taken
-   - For "not-ok" responses:
-     - Parse channelId and messageId from the response ID
-     - Fetch the message using Discord's API
-     - Add ❌ reaction to mark inappropriate content
+   - Parse channelId and messageId from the response ID
+   - Fetch the message using Discord's API
+   - Create a thread on the message
+   - Send a detailed response message in the thread containing:
+     - Output or outputs (if available)
+     - Summary (if available)
+     - Reasoning (if available)
 
 ### Incoming Responses
 Llamahair.ai sends moderation results to the webhook endpoint. The bot handles two types of incoming requests:
 
 1. Validation Requests: Used to verify the webhook endpoint
-2. Moderation Responses: Contains the moderation result with either:
-   - `"output": "ok"` - Message is acceptable
-   - `"output": "not-ok"` - Message violates rules, marked with ❌
+2. Moderation Responses: Contains the moderation result which may include:
+   - `output`: Single output value
+   - `outputs`: Array of multiple outputs
+   - `summary`: Summary of the analysis
+   - `reasoning`: Detailed explanation of the decision
+
+The bot creates a thread for each moderated message and includes all available response information.
 
 See the API Endpoints section for detailed request/response formats.
 
@@ -150,7 +156,7 @@ See the API Endpoints section for detailed request/response formats.
   }
   ```
 
-#### 2. Moderation Response
+#### 2. Llamahair Response
 - Body:
   ```json
   {
@@ -159,8 +165,10 @@ See the API Endpoints section for detailed request/response formats.
     "identifier": "discord-moderation",
     "timestamp": 1740647307,
     "response": {
-      "output": "ok",
-      "reasoning": "Moderation result explanation"
+      "output": "value",
+      "outputs": ["value1", "value2"],
+      "summary": "Overall analysis summary",
+      "reasoning": "Detailed explanation of the decision"
     }
   }
   ```
