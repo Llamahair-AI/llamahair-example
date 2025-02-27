@@ -65,7 +65,7 @@ app.post('/webhook', async (req, res) => {
             // Create a thread and send both output and reasoning
             const thread = await message.startThread({
                 name: 'Llamahair AI Exploration',
-                autoArchiveDuration: 5
+                autoArchiveDuration: 60
             });
             // Construct message with all available response fields
             let responseMessage = '';
