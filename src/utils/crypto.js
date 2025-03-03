@@ -20,8 +20,8 @@ function generateSignature(id, body, timestamp) {
  * @returns {string} SHA256 signature
  */
 function generateValidationSignature(timestamp, value) {
-    const data = `${timestamp}${value}${config.llamahair.secretKey}`;
-    return crypto.createHash('sha256').update(data).digest('hex');
+    const data = `${timestamp}${value}`;
+    return crypto.createHmac('sha256', config.llamahair.secretKey).update(data).digest('hex');
 }
 
 /**
