@@ -9,7 +9,7 @@ const config = require('../config');
  * @returns {string} SHA256 signature
  */
 function generateSignature(id, body, timestamp) {
-    const data = `${id}${body}${timestamp}${config.llamahair.secretKey}`;
+    const data = `${id}${body}${timestamp}`;
     return crypto.createHash('sha256').update(data).digest('hex');
 }
 
