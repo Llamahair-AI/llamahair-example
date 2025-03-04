@@ -10,7 +10,7 @@ const config = require('../config');
  */
 function generateSignature(id, body, timestamp) {
     const data = `${id}${body}${timestamp}`;
-    return crypto.createHash('sha256').update(data).digest('hex');
+    return crypto.createHmac('sha256', config.llamahair.apiKey).update(data).digest('hex');
 }
 
 /**

@@ -32,6 +32,7 @@ const config = {
     },
     llamahair: {
         apiUrl: process.env.LLAMAHAIR_API_URL,
+        apiKey: process.env.LLAMAHAIR_API_KEY,
         secretKey: process.env.SECRET_KEY,
     }
 };
