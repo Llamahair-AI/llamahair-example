@@ -8,8 +8,9 @@ const config = require('../config');
  * @param {number} timestamp - Unix timestamp in seconds
  * @returns {string} SHA256 signature
  */
-function generateSignature(id, body, timestamp) {
-    const data = `${id}${body}${timestamp}`;
+function generateSignature(body, timestamp) {
+    const bodyHash = crypto.createHash('sha256').update(JSON.stringify(body)).digest('hex');
+    const data = `${bodyHash}${timestamp}`;
     return crypto.createHmac('sha256', config.llamahair.apiKey).update(data).digest('hex');
 }
 

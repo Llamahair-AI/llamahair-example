@@ -32,14 +32,15 @@ client.on('messageCreate', async (message) => {
             llama: {
                 id: messageId,
                 body: message.content,
-                timestamp: timestamp,
-                signature: generateSignature(messageId, message.content, timestamp)
             }
         };
 
         // Send request to Llamahair.ai
         const response = await axios.post(config.llamahair.apiUrl, llamaRequest, {
             headers: {
+                'X-API-KEY': config.llamahair.apiKey,
+                'X-Signature': generateSignature(llamaRequest, timestamp),
+                'X-Timestamp': timestamp,
                 'Content-Type': 'application/json',
             }
         });
