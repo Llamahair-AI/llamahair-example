@@ -42,6 +42,8 @@ app.post('/webhook', async (req, res) => {
                 error: 'Invalid response format' 
             });
         }
+        
+        const output = response.output || response.summary || response.outouts || response.extracted_values;
 
         // Process the moderation result
         logger.info('Received moderation result:', { 
