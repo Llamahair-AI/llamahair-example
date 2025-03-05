@@ -43,8 +43,6 @@ app.post('/webhook', async (req, res) => {
             });
         }
         
-        const output = response.output || response.summary || response.outouts || response.extracted_values;
-
         // Process the moderation result
         logger.info('Received moderation result:', { 
             id, 
@@ -82,6 +80,9 @@ app.post('/webhook', async (req, res) => {
             }
             if (response.reasoning) {
                 responseMessage += `Reasoning: ${response.reasoning}`;
+            }
+            if (response.extracted_values) {
+                responseMessage += JSON.stringify(response.extracted_values);
             }
 
             await thread.send(responseMessage);
