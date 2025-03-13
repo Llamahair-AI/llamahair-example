@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d67a63d6-379d-4bc6-9c2b-acac7080f0d9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/crypto.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/reed/code/llamahair/llamahair-example&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/reed/code/beamlink/galactus&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -142,7 +140,8 @@
       <updated>1740646031788</updated>
       <workItem from="1740646033393" duration="593000" />
       <workItem from="1740646679164" duration="7588000" />
-      <workItem from="1740992526486" duration="9057000" />
+      <workItem from="1740992526486" duration="12637000" />
+      <workItem from="1741852432047" duration="7497000" />
     </task>
     <servers />
   </component>

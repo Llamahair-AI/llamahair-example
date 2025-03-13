@@ -6,7 +6,9 @@ dotenv.config();
 
 const requiredEnvVars = [
     'DISCORD_TOKEN',
-    'LLAMAHAIR_API_URL',
+    'LLAMAHAIR_API_KEY',
+    'LLAMAHAIR_API_SECRET',
+    'LLAMAHAIR_PROMPT_URL',
     'SECRET_KEY'
 ];
 
@@ -31,8 +33,8 @@ const config = {
         logLevel: process.env.LOG_LEVEL || 'info',
     },
     llamahair: {
-        apiUrl: process.env.LLAMAHAIR_API_URL,
-        apiKey: process.env.LLAMAHAIR_API_KEY,
+        promptUrl: process.env.LLAMAHAIR_PROMPT_URL,
+        apiKeyId: process.env.LLAMAHAIR_API_KEY,
         apiSecret: process.env.LLAMAHAIR_API_SECRET,
         secretKey: process.env.SECRET_KEY,
     }

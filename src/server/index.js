@@ -1,11 +1,15 @@
 const express = require('express');
 const logger = require('../utils/logger');
 const config = require('../config');
-const { generateValidationSignature } = require('../utils/crypto');
 const { client } = require('../bot');
+const { LlamahairWebhookValidator } = require('@llamahair/client');
 
 const app = express();
 const port = config.server.port;
+
+const llamaWebhookValidator = new LlamahairWebhookValidator({
+    secret: config.llamahair.secretKey
+})
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
@@ -18,23 +22,15 @@ app.get('/health', (req, res) => {
 // Endpoint for receiving Llamahair.ai responses
 app.post('/webhook', async (req, res) => {
     try {
-        const { type } = req.body;
-
         // Handle validation requests
-        if (type === 'validate') {
-            const { timestamp, value } = req.body;
-            if (!timestamp || !value) {
-                logger.warn('Invalid validation request received');
-                return res.status(400).json({ error: 'Invalid validation request' });
-            }
-
-            const code = generateValidationSignature(timestamp, value);
+        if (llamaWebhookValidator.shouldValidate(req)) {
+            const code = llamaWebhookValidator.validate(req.body);
             logger.info('Validation request processed successfully');
             return res.status(200).json({ code });
         }
-
+        
         // Handle moderation responses
-        const { id, identifier, timestamp, response } = req.body;
+        const { type, id, identifier, timestamp, response } = req.body;
 
         if (type !== 'response' || !id || !identifier || !timestamp || !response) {
             logger.warn('Invalid response format received:', req.body);

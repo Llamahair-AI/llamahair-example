@@ -9,11 +9,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@llamahair/client": "^1.0.1",
+    "axios": "^1.4.0",
     "discord.js": "^14.18.0",
-    "express": "^5.0.1",
     "dotenv": "^16.3.1",
-    "winston": "^3.9.0",
-    "axios": "^1.4.0"
+    "express": "^5.0.1",
+    "winston": "^3.9.0"
   },
   "devDependencies": {
     "jest": "^29.5.0",
